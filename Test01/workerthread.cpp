@@ -15,7 +15,8 @@ void WorkerThread::closeThread()
 void WorkerThread::run()
 {
     uint64_t loop = 0;
-    MyImage img;
+    MyImage *img = new MyImage;
+    img->setSthrNo((uint8_t)this->property("SThrNo").toUInt());
 
     setPriority(QThread::TimeCriticalPriority);
 
@@ -24,13 +25,16 @@ void WorkerThread::run()
         loop++;
         if(isStop) {
             qDebug() << tr("stop ThreadId() ") << QThread::currentThreadId();
-            qDebug() << tr("loop %u ") << loop;
+            qDebug() << tr("loop ") << loop;
             return;
         }
-
-        //qDebug() << tr("send img %p ") << &img;
-        emit sendMsg(img);
+        if(loop %10000 == 0 ) sleep(1);
         //sleep(1);
+
+        //qDebug() << tr("send img ") << &img;
+        emit sendMsg(*img);
     }
+
+    delete img;
     //this->exec();
 }

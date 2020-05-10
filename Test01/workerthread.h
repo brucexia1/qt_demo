@@ -16,7 +16,7 @@ protected:
     virtual void run();
 
 signals:
-    void sendMsg(MyImage &s);
+    void sendMsg(MyImage img);
 
 private:
     volatile bool isStop;

@@ -1,10 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <stdint.h>
 #include <QMainWindow>
 
 #include "workerthread.h"
 #include "myimage.h"
+
+#define WORK_STHR1    (1)
+#define WORK_STHR2    (2)
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,13 +29,17 @@ private:
 private slots:
     void createThreadBtnSlot();
     void closeThreadBtnSlot();
+    void showStatSlot();
 
-    void recevieMsg(MyImage &s);
+    void recevieMsg(MyImage img);
 
 private:
     Ui::MainWindow *ui;
 
     WorkerThread *thrPro1;
     WorkerThread *thrPro2;
+    uint64_t m_thr1Msg;
+    uint64_t m_thr2Msg;
+
 };
 #endif // MAINWINDOW_H
